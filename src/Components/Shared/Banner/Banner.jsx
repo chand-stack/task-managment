@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import bg from "../../../assets/cover.jpg";
 const Banner = () => {
   return (
@@ -24,9 +25,12 @@ const Banner = () => {
               elevate your efficiency. Experience productivity like never before
               with TaskNinja!
             </p>
-            <button className="btn bg-[#1e90ff] md:text-lg text-white border-none hover:text-black">
+            <Link
+              to="/login"
+              className="btn bg-[#1e90ff] md:text-lg text-white border-none hover:text-black"
+            >
               Let’s Explore
-            </button>
+            </Link>
           </div>
         </div>
       </div>
