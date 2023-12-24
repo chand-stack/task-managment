@@ -1,31 +1,34 @@
 import { NavLink, Outlet } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import logo from "../assets/logo-taskio-tasklogo.png";
 import { BsMenuButtonWideFill, BsFillBookmarkStarFill } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { FaHome } from "react-icons/fa";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 const Dashboard = () => {
+  const [startDate, setStartDate] = useState(new Date());
   const { user } = useContext(AuthContext);
   return (
     <div className="flex font-poppin mx-auto">
       <div className="lg:w-1/4 min-h-screen bg-slate-50">
         <div className="hidden lg:flex items-center justify-center py-5">
-          <img className="w-12" src={logo} alt="" />
+          <img className="w-12" src={logo} alt="user" />
           <h1 className="font-extrabold text-xl">Ninja</h1>
         </div>
         <div className="hidden lg:contents">
-          <div className="space-y-3 p-3">
+          <div className="space-y-3 p-3 -mt-8">
             <img
               className="h-20 w-20 rounded-full mx-auto border-4 border-blue-500"
-              src={user.photoURL}
+              src={user?.photoURL}
               alt=""
             />
             <h1 className="flex items-center gap-2 text-lg rounded-xl py-1 border-y font-semibold text-blue-600">
-              <CgProfile /> Name: {user.displayName}
+              <CgProfile /> Name: {user?.displayName}
             </h1>
             <h1 className="flex items-center gap-2 text-lg rounded-xl py-1 border-y font-semibold text-blue-600">
-              <BsFillBookmarkStarFill /> Email: {user.email}
+              <BsFillBookmarkStarFill /> Email: {user?.email}
             </h1>
             <NavLink
               to="/"
@@ -40,6 +43,58 @@ const Dashboard = () => {
               <FaHome />
               Back To Home
             </NavLink>
+          </div>
+          <div>
+            <form className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">Titles</span>
+                </label>
+                <input
+                  // {...register("email")}
+                  type="text"
+                  placeholder="title"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">Description</span>
+                </label>
+                <input
+                  // {...register("password")}
+                  type="text"
+                  placeholder="description"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">Deadline</span>
+                </label>
+                <div>
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                  />
+                </div>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">Priority</span>
+                </label>
+                <select className="select select-bordered w-full max-w-xs">
+                  <option>Low</option>
+                  <option>Moderate</option>
+                  <option>High</option>
+                </select>
+              </div>
+              <div className="form-control mt-6">
+                <button className="btn btn-primary">Add to TODO</button>
+              </div>
+            </form>
           </div>
         </div>
         <div className="lg:hidden fixed z-50">
@@ -70,63 +125,33 @@ const Dashboard = () => {
                 {/* Sidebar content here */}
 
                 <>
-                  {/* users routes */}
-                  <li className="btn w-full text-lg btn-sm rounded-xl">
-                    <NavLink
-                      to="/dashboard/profile"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? "pending"
-                          : isActive
-                          ? "bg-blue-600 text-white w-full h-full rounded-xl"
-                          : ""
-                      }
-                    >
-                      Profile
-                    </NavLink>
-                  </li>
-                  <li className="btn w-full text-lg btn-sm rounded-xl">
-                    <NavLink
-                      to="/dashboard/appointments"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? "pending"
-                          : isActive
-                          ? "bg-blue-600 text-white w-full h-full rounded-xl"
-                          : ""
-                      }
-                    >
-                      Upcoming Appointments
-                    </NavLink>
-                  </li>
-                  <li className="btn w-full text-lg btn-sm rounded-xl">
-                    <NavLink
-                      to="/dashboard/testresults"
-                      className={({ isActive, isPending }) =>
-                        isPending
-                          ? "pending"
-                          : isActive
-                          ? "bg-blue-600 text-white w-full h-full rounded-xl"
-                          : ""
-                      }
-                    >
-                      Test results
-                    </NavLink>
-                  </li>
-                  <li className="btn w-full text-lg btn-sm rounded-xl">
+                  <div className="space-y-3 p-3">
+                    <img
+                      className="h-20 w-20 rounded-full mx-auto border-4 border-blue-500"
+                      src={user.photoURL}
+                      alt=""
+                    />
+                    <h1 className="flex items-center gap-2 rounded-xl py-1 border-y font-semibold text-blue-600">
+                      <CgProfile /> Name: {user.displayName}
+                    </h1>
+                    <h1 className="flex items-center gap-2 rounded-xl py-1 border-y font-semibold text-blue-600">
+                      <BsFillBookmarkStarFill /> Email: {user.email}
+                    </h1>
                     <NavLink
                       to="/"
                       className={({ isActive, isPending }) =>
                         isPending
                           ? "pending"
                           : isActive
-                          ? "bg-blue-600 text-white w-full h-full rounded-xl"
-                          : ""
+                          ? "text-blue-600 flex items-center gap-2"
+                          : "flex items-center gap-2 rounded-xl py-1 border-y font-semibold text-blue-600"
                       }
                     >
-                      Home
+                      <FaHome />
+                      Back To Home
                     </NavLink>
-                  </li>
+                  </div>
+                  {/* users routes */}
                 </>
               </ul>
             </div>
