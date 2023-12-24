@@ -2,9 +2,11 @@ import { NavLink, Outlet } from "react-router-dom";
 import logo from "../assets/logo-taskio-tasklogo.png";
 import { BsMenuButtonWideFill, BsFillBookmarkStarFill } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
-import { GrDocumentTest } from "react-icons/gr";
 import { FaHome } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 const Dashboard = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div className="flex font-poppin mx-auto">
       <div className="lg:w-1/4 min-h-screen bg-slate-50">
@@ -13,68 +15,32 @@ const Dashboard = () => {
           <h1 className="font-extrabold text-xl">Ninja</h1>
         </div>
         <div className="hidden lg:contents">
-          <ul className="menu-vertical space-y-4 p-4">
-            {/* users route */}
-            <li className="text-lg rounded-xl py-1 border-y font-semibold">
-              <NavLink
-                to="/dashboard/task"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-blue-600 flex items-center gap-2"
-                    : "flex items-center gap-2 "
-                }
-              >
-                <CgProfile /> Profile
-              </NavLink>
-            </li>
-            <li className="text-lg rounded-xl  py-1 border-y font-semibold">
-              <NavLink
-                to="/dashboard/appointments"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-blue-600 flex items-center gap-2"
-                    : "flex items-center gap-2"
-                }
-              >
-                <BsFillBookmarkStarFill />
-                Upcoming Appointments
-              </NavLink>
-            </li>
-            <li className="text-lg rounded-xl  py-1 border-y font-semibold">
-              <NavLink
-                to="/dashboard/testresults"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-blue-600 flex items-center gap-2"
-                    : "flex items-center gap-2"
-                }
-              >
-                <GrDocumentTest />
-                Test Results
-              </NavLink>
-            </li>
-            <li className="text-lg rounded-xl flex  py-1 border-y font-semibold">
-              <NavLink
-                to="/"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-blue-600 flex items-center gap-2"
-                    : "flex items-center gap-2"
-                }
-              >
-                <FaHome />
-                Home
-              </NavLink>
-            </li>
-          </ul>
+          <div className="space-y-3 p-3">
+            <img
+              className="h-20 w-20 rounded-full mx-auto border-4 border-blue-500"
+              src={user.photoURL}
+              alt=""
+            />
+            <h1 className="flex items-center gap-2 text-lg rounded-xl py-1 border-y font-semibold text-blue-600">
+              <CgProfile /> Name: {user.displayName}
+            </h1>
+            <h1 className="flex items-center gap-2 text-lg rounded-xl py-1 border-y font-semibold text-blue-600">
+              <BsFillBookmarkStarFill /> Email: {user.email}
+            </h1>
+            <NavLink
+              to="/"
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "text-blue-600 flex items-center gap-2"
+                  : "flex items-center gap-2 text-lg rounded-xl py-1 border-y font-semibold text-blue-600"
+              }
+            >
+              <FaHome />
+              Back To Home
+            </NavLink>
+          </div>
         </div>
         <div className="lg:hidden fixed z-50">
           {/* drawer for mobile */}
