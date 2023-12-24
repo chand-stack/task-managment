@@ -1,6 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   const links = (
     <>
       <li>
@@ -36,7 +39,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="w-full bg-[#1e90ff]">
+    <div className="w-full bg-[#1e90ff] py-3">
       <div className="navbar container mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -71,7 +74,13 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn btn-outline text-white">Button</a>
+          {user ? (
+            <button className="btn btn-outline text-white">Logout</button>
+          ) : (
+            <Link className="btn btn-outline text-white" to="/login">
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
     </div>

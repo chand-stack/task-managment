@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import bg from "../../../assets/cover.jpg";
+import { useContext } from "react";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
 const Banner = () => {
+  const { user } = useContext(AuthContext);
   return (
     <div>
       <div
@@ -26,7 +29,7 @@ const Banner = () => {
               with TaskNinja!
             </p>
             <Link
-              to="/login"
+              to={user ? "/dashboard/task" : "/login"}
               className="btn bg-[#1e90ff] md:text-lg text-white border-none hover:text-black"
             >
               Let’s Explore
