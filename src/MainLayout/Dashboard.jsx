@@ -7,6 +7,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaHome } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import userimg from "../assets/icons8-user.gif";
 const Dashboard = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useContext(AuthContext);
@@ -21,7 +22,7 @@ const Dashboard = () => {
           <div className="space-y-3 p-3 -mt-8">
             <img
               className="h-20 w-20 rounded-full mx-auto border-4 border-blue-500"
-              src={user?.photoURL}
+              src={user?.photoURL || userimg}
               alt=""
             />
             <h1 className="flex items-center gap-2 text-lg rounded-xl py-1 border-y font-semibold text-blue-600">
@@ -128,14 +129,14 @@ const Dashboard = () => {
                   <div className="space-y-3 p-3">
                     <img
                       className="h-20 w-20 rounded-full mx-auto border-4 border-blue-500"
-                      src={user.photoURL}
+                      src={user?.photoURL || userimg}
                       alt=""
                     />
                     <h1 className="flex items-center gap-2 rounded-xl py-1 border-y font-semibold text-blue-600">
-                      <CgProfile /> Name: {user.displayName}
+                      <CgProfile /> Name: {user?.displayName}
                     </h1>
                     <h1 className="flex items-center gap-2 rounded-xl py-1 border-y font-semibold text-blue-600">
-                      <BsFillBookmarkStarFill /> Email: {user.email}
+                      <BsFillBookmarkStarFill /> Email: {user?.email}
                     </h1>
                     <NavLink
                       to="/"
