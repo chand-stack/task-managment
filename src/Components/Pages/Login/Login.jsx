@@ -3,6 +3,7 @@ import loginimg from "../../../assets/login.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 const Login = () => {
   const navigate = useNavigate();
   const { loginUser } = useContext(AuthContext);
@@ -11,6 +12,11 @@ const Login = () => {
     console.log(data);
     loginUser(data.email, data.password)
       .then((res) => {
+        Swal.fire({
+          title: "Login complete!!",
+          text: " Your productivity adventure starts now",
+          icon: "success",
+        });
         navigate("/dashboard/task");
       })
       .catch((error) => {

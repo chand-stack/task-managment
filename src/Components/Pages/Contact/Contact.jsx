@@ -3,6 +3,7 @@ import bg from "../../../assets/logo-taskio-tasklogo.png";
 import { CiLocationOn } from "react-icons/ci";
 import { MdOutlineMail } from "react-icons/md";
 import { CiPhone } from "react-icons/ci";
+import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
 
 const Contact = () => {
   return (
@@ -16,7 +17,7 @@ const Contact = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="h-full w-full bg-[#1e90ff] bg-opacity-70 flex justify-center items-center">
+        <div className="h-full w-full bg-[#1e90ff] bg-opacity-90 flex justify-center items-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white">
             Contact Us
           </h1>
@@ -108,6 +109,7 @@ const Contact = () => {
           </div>
         </form>
       </div>
+      <NewsLetter />
     </div>
   );
 };

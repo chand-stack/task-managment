@@ -3,6 +3,7 @@ import loginimg from "../../../assets/login.jpg";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 const Register = () => {
   const { createUser, updateUser } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
@@ -12,6 +13,11 @@ const Register = () => {
       .then((result) => {
         updateUser(data.name, data.photo)
           .then((res) => {
+            Swal.fire({
+              title: "Congratulations!!",
+              text: "You're now a proud member of the TaskNinja community!",
+              icon: "success",
+            });
             navigate("/dashboard/task");
           })
           .catch((error) => {

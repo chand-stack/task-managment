@@ -2,6 +2,7 @@ import bg from "../../../assets/logo-taskio-tasklogo.png";
 import img from "../../../assets/logo-taskio-tasklogo.png";
 import { MdRoundaboutRight } from "react-icons/md";
 import { LuArrowRightFromLine } from "react-icons/lu";
+import NewsLetter from "../../Shared/NewsLetter/NewsLetter";
 const About = () => {
   return (
     <div>
@@ -14,7 +15,7 @@ const About = () => {
           backgroundSize: "cover",
         }}
       >
-        <div className="h-full w-full bg-[#1e90ff] bg-opacity-70 flex justify-center items-center">
+        <div className="h-full w-full bg-[#1e90ff] bg-opacity-90 flex justify-center items-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white">
             About Us
           </h1>
@@ -76,6 +77,7 @@ const About = () => {
           </div>
         </div>
       </div>
+      <NewsLetter />
     </div>
   );
 };

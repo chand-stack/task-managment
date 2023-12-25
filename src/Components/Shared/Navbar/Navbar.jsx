@@ -66,7 +66,9 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl text-white">TaskNinja</a>
+          <Link to="/" className="btn btn-ghost text-xl text-white">
+            TaskNinja
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu-horizontal px-1 text-white font-semibold text-lg gap-4">

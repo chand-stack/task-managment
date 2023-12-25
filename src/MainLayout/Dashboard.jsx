@@ -8,9 +8,41 @@ import { FaHome } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import userimg from "../assets/icons8-user.gif";
+import axios from "axios";
+import Swal from "sweetalert2";
 const Dashboard = () => {
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useContext(AuthContext);
+  const [priority, setPriority] = useState("");
+  const priorityHandler = (e) => {
+    // console.log(e.target.value);
+    setPriority(e.target.value);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const title = e.target.title.value;
+    const description = e.target.description.value;
+    const priorityRole = priority;
+    const deadline = startDate;
+    const category = "todo";
+    const taskInfo = {
+      title,
+      description,
+      priorityRole,
+      deadline,
+      category,
+    };
+    const response = await axios.post("http://localhost:5000/task", taskInfo);
+    if (response.data.acknowledged) {
+      Swal.fire({
+        title: "Fantastic! You've added a new task!",
+        text: "Time to conquer and achieve!",
+        icon: "success",
+      });
+      return;
+    }
+    console.log(taskInfo);
+  };
   return (
     <div className="flex font-poppin mx-auto">
       <div className="lg:w-1/4 min-h-screen bg-slate-50">
@@ -46,31 +78,7 @@ const Dashboard = () => {
             </NavLink>
           </div>
           <div>
-            <form className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-semibold">Titles</span>
-                </label>
-                <input
-                  // {...register("email")}
-                  type="text"
-                  placeholder="title"
-                  className="input input-bordered"
-                  required
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-semibold">Description</span>
-                </label>
-                <input
-                  // {...register("password")}
-                  type="text"
-                  placeholder="description"
-                  className="input input-bordered"
-                  required
-                />
-              </div>
+            <form onSubmit={handleSubmit} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold">Deadline</span>
@@ -84,17 +92,45 @@ const Dashboard = () => {
               </div>
               <div className="form-control">
                 <label className="label">
+                  <span className="label-text font-semibold">Title</span>
+                </label>
+                <input
+                  name="title"
+                  type="text"
+                  placeholder="title"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text font-semibold">Description</span>
+                </label>
+                <input
+                  name="description"
+                  type="text"
+                  placeholder="description"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
                   <span className="label-text font-semibold">Priority</span>
                 </label>
-                <select className="select select-bordered w-full max-w-xs">
-                  <option>Low</option>
-                  <option>Moderate</option>
-                  <option>High</option>
+                <select
+                  onChange={priorityHandler}
+                  className="select select-bordered w-full max-w-xs"
+                >
+                  <option value="low">Low</option>
+                  <option value="moderate">Moderate</option>
+                  <option value="high">High</option>
                 </select>
               </div>
-              <div className="form-control mt-6">
-                <button className="btn btn-primary">Add to TODO</button>
-              </div>
+
+              <button type="submit" className="btn btn-primary">
+                Add to TODO
+              </button>
             </form>
           </div>
         </div>
@@ -124,7 +160,6 @@ const Dashboard = () => {
                   <h1 className="font-extrabold text-xl">Ninja</h1>
                 </div>
                 {/* Sidebar content here */}
-
                 <>
                   <div className="space-y-3 p-3">
                     <img
@@ -154,6 +189,69 @@ const Dashboard = () => {
                   </div>
                   {/* users routes */}
                 </>
+                <div>
+                  <form onSubmit={handleSubmit} className="card-body">
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">Title</span>
+                      </label>
+                      <input
+                        name="title"
+                        type="text"
+                        placeholder="title"
+                        className="input input-bordered"
+                        required
+                      />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">
+                          Description
+                        </span>
+                      </label>
+                      <input
+                        name="description"
+                        type="text"
+                        placeholder="description"
+                        className="input input-bordered"
+                        required
+                      />
+                    </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">
+                          Deadline
+                        </span>
+                      </label>
+                      <div>
+                        <DatePicker
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                        />
+                      </div>
+                    </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-semibold">
+                          Priority
+                        </span>
+                      </label>
+                      <select
+                        onChange={priorityHandler}
+                        className="select select-bordered w-full max-w-xs"
+                      >
+                        <option>Low</option>
+                        <option>Moderate</option>
+                        <option>High</option>
+                      </select>
+                    </div>
+                    <div className="form-control mt-6">
+                      <button type="submit" className="btn btn-primary">
+                        Add to TODO
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </ul>
             </div>
           </div>
