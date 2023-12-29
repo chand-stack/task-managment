@@ -3,10 +3,12 @@ import loginimg from "../../../assets/login.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
 import Swal from "sweetalert2";
 const Login = () => {
   const navigate = useNavigate();
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, googleLogin, githublogin } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     console.log(data);
@@ -23,7 +25,34 @@ const Login = () => {
         console.log(error);
       });
   };
-
+  const googleHandler = () => {
+    googleLogin()
+      .then(() => {
+        Swal.fire({
+          title: "Login complete!!",
+          text: " Your productivity adventure starts now",
+          icon: "success",
+        });
+        navigate("/dashboard/task");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const githubHandler = () => {
+    githublogin()
+      .then(() => {
+        Swal.fire({
+          title: "Login complete!!",
+          text: " Your productivity adventure starts now",
+          icon: "success",
+        });
+        navigate("/dashboard/task");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 items-center container mx-auto mt-5 md:mt-20">
       <div className="lg:w-3/4 lg:mx-auto">
@@ -54,7 +83,9 @@ const Login = () => {
             />
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-primary">Login</button>
+            <button type="submit" className="btn btn-primary">
+              Login
+            </button>
           </div>
           <label className="label">
             <p className="text-base font-medium">
@@ -64,6 +95,25 @@ const Login = () => {
               </Link>
             </p>
           </label>
+          <div className="text-center pb-3 space-y-2">
+            <p className="text-center text-black">---OR---</p>
+            <div className="md:flex items-center gap-2">
+              <button
+                type="button"
+                onClick={googleHandler}
+                className=" btn btn-outline text-black"
+              >
+                Continue With Google <FcGoogle className="text-2xl" />
+              </button>
+              <button
+                type="button"
+                onClick={githubHandler}
+                className=" btn btn-outline text-black mt-2 md:mt-0"
+              >
+                Continue With GitHub <FaGithub className="text-2xl" />
+              </button>
+            </div>
+          </div>
         </form>
       </div>
       <div>

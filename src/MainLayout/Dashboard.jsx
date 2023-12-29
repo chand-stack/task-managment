@@ -32,7 +32,10 @@ const Dashboard = () => {
       deadline,
       category,
     };
-    const response = await axios.post("http://localhost:5000/task", taskInfo);
+    const response = await axios.post(
+      "https://task-managment-server-eight.vercel.app/task",
+      taskInfo
+    );
     if (response.data.acknowledged) {
       Swal.fire({
         title: "Fantastic! You've added a new task!",

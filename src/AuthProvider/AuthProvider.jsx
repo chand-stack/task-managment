@@ -1,7 +1,10 @@
 import {
+  GithubAuthProvider,
+  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -35,6 +38,18 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  const googleProvider = new GoogleAuthProvider();
+  const googleLogin = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
+
+  const githubprovider = new GithubAuthProvider();
+  const githublogin = () => {
+    setLoading(true);
+    return signInWithPopup(auth, githubprovider);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setuser(currentUser);
@@ -52,6 +67,8 @@ const AuthProvider = ({ children }) => {
     loginUser,
     logout,
     updateUser,
+    googleLogin,
+    githublogin,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
