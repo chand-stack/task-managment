@@ -16,7 +16,7 @@ const About = () => {
         }}
       >
         <div className="h-full w-full bg-[#1e90ff] bg-opacity-90 flex justify-center items-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-white">
+          <h1 className="text-4xl md:text-5xl font-bold text-white">
             About Us
           </h1>
         </div>
